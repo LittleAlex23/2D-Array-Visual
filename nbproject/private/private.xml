@@ -4,7 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/GUI.java</file>
+            <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/FloodFill/Imp/FloodFill.java</file>
+            <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/FloodFill/Imp/FPanel.java</file>
             <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/Main.java</file>
+            <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/Node.java</file>
         </group>
     </open-files>
 </project-private>
