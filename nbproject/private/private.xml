@@ -3,11 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/AStar/Imp/APanel.java</file>
+            <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/FloodFill/Imp/FloodFillAlgorithm.java</file>
+            <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/FloodFill/State/FoundStartingCell.java</file>
+            <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/FloodFill/State/CheckingNeighborState.java</file>
+            <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/FloodFill/State/StartState.java</file>
             <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/GUI.java</file>
-            <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/FloodFill/Imp/FloodFill.java</file>
+            <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/AStar/Imp/AStarAlgorithm.java</file>
+            <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/FloodFill/State/FloodFillAlgorithmStep.java</file>
+            <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/FloodFill/Imp/Node.java</file>
+            <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/SidePanel.java</file>
+            <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/AStar/Imp/Node.java</file>
+            <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/FloodFill/State/EndState.java</file>
             <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/FloodFill/Imp/FPanel.java</file>
+            <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/FloodFill/State/ColoringState.java</file>
             <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/Main.java</file>
-            <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/Node.java</file>
+            <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/FloodFill/State/FloodFill.java</file>
+            <file>file:/C:/Users/Alexandre/Documents/NetBeansProjects/ArrayProblem/src/Com/Alex/FloodFill/State/FloodFillState.java</file>
         </group>
     </open-files>
 </project-private>

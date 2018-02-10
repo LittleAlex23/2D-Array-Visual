@@ -1,6 +1,6 @@
 package Com.Alex.FloodFill.Imp;
 
-import Com.Alex.Node;
+import Com.Alex.GUI;
 import java.awt.Color;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -49,8 +49,8 @@ public class FloodFillAlgorithm {
     }
 
     public FloodFillAlgorithm(){}
-    public final void setUp(JButton[][] cellButtons){
-        this.cellButtons = cellButtons;
+    public final void setUp(){
+        this.cellButtons = GUI.cellList;
         nodes = new Node[cellButtons.length][cellButtons.length];
         for (int i = 0; i < cellButtons.length; i++) {
             for (int j = 0; j < cellButtons[0].length; j++) {

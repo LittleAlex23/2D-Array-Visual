@@ -8,14 +8,14 @@ import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JPanel;
 
 public class GUI extends javax.swing.JFrame {
-    private final int SIZE = 10;
-    private final JButton[][] cellList = new JButton[SIZE][SIZE];
-    private final HashMap<String, String> map = new HashMap<>();
+    public final static int SIZE = 16;
+    public static JButton[][] cellList = new JButton[SIZE][SIZE];
+    private final HashMap<String, Integer> map = new HashMap<>();
     private final String[] names = new String[]{"Flood fill", "A* algorithm"};
-
+    private final SidePanel[] panels;
+    private SidePanel currentSidePanel;
     public GUI() {
         initComponents();
         GridLayout grid = new GridLayout(SIZE,SIZE);
@@ -25,11 +25,12 @@ public class GUI extends javax.swing.JFrame {
                 initializeCell(i,j);
                 mainPanel.add(cellList[i][j]);
             }
-        map.put(names[0], "1");
-        map.put(names[1], "2");
+        panels = new SidePanel[]{FPanel.getInstance(),APanel.getInstance()};
+        map.put(names[0], 0);
+        map.put(names[1], 1);
     }
     public final void initializeCell(int i, int j){
-        cellList[i][j] = new JButton("0");
+        cellList[i][j] = new JButton();
         javax.swing.border.Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
         cellList[i][j].setBorder(border);
         cellList[i][j].setBackground(Color.WHITE);
@@ -96,36 +97,25 @@ public class GUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(startPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(233, Short.MAX_VALUE)))
+                    .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(startPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(startPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(524, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(startPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -138,24 +128,20 @@ public class GUI extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         JComboBox c = (JComboBox)evt.getSource();
         String value = c.getSelectedItem().toString();
-        String index = map.get(value);
-        if(index == null)
+        int index = map.get(value) == null ? -1 : map.get(value);
+        if(index == -1)
             return;
-        JPanel panel;
-        switch(index){
-            case "1":
-                panel = new FPanel(statusLabel, cellList);
-                break;
-            default:
-                panel = new APanel(statusLabel, cellList);
-                break;
-                
+        if(currentSidePanel != null){
+            if(currentSidePanel.hasDirtied)
+                currentSidePanel.cleanCells();
+            currentSidePanel.removeListeners();
+            startPanel.remove(currentSidePanel);
         }
-        startPanel.add(panel);
+        currentSidePanel = panels[index];
+        startPanel.add(currentSidePanel);
+        currentSidePanel.setCells();
         startPanel.revalidate();
         startPanel.repaint();
-        panel.setOpaque(false);
-        jComboBox1.setEnabled(false);
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
 
@@ -166,6 +152,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel startPanel;
-    private javax.swing.JLabel statusLabel;
+    public static javax.swing.JLabel statusLabel;
     // End of variables declaration//GEN-END:variables
 }

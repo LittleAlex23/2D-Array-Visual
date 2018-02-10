@@ -1,7 +1,5 @@
 package Com.Alex.FloodFill.State;
 
-import javax.swing.JButton;
-
 public class FloodFill {
     private final FloodFillState initial;
     private final FloodFillState startingFloodCell;
@@ -10,14 +8,15 @@ public class FloodFill {
     private final FloodFillState endState;
     private FloodFillState state;
     private final FloodFillAlgorithmStep step;
-    public FloodFill(JButton[][] cellButtons){
+    private boolean isFinish = false;
+    public FloodFill(){
         step = new FloodFillAlgorithmStep();
-        step.setUp(cellButtons);
+        step.setUp();
         initial = new StartState(this);
         startingFloodCell = new FoundStartingCell(this);
         fillCell = new ColoringState(this);
         neighbor = new CheckingNeighborState(this);
-        endState = new EndState();
+        endState = new EndState(this);
         state = initial;
     }
     public String next(){
@@ -45,8 +44,15 @@ public class FloodFill {
     public void reset(){
         step.reset();
         state = initial;
+        isFinish = false;
     }
     public FloodFillAlgorithmStep getFloodFill(){
         return step;
+    }
+    public boolean isFinish(){
+        return isFinish;
+    }
+    public void signalStop(){
+        isFinish = true;
     }
 }

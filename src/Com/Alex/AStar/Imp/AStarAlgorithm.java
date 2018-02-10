@@ -1,7 +1,6 @@
 package Com.Alex.AStar.Imp;
 
 import java.awt.Color;
-import java.util.Iterator;
 import java.util.PriorityQueue;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -12,8 +11,8 @@ public class AStarAlgorithm extends JPanel{
     private Node[][] nodes;
     private Node source;
     private Node destination;
-    private final PriorityQueue<Node> openList = new PriorityQueue<>();
-    private final PriorityQueue<Node> closedList = new PriorityQueue<>();
+    private PriorityQueue<Node> openList;
+    private PriorityQueue<Node> closedList;
     public AStarAlgorithm(){
     
     }
@@ -69,6 +68,8 @@ public class AStarAlgorithm extends JPanel{
         return true;
     }
     public final void setUp(JButton[][] cellButtons, int sourceId, int destinationId){
+        openList = new PriorityQueue<>();
+        closedList = new PriorityQueue<>();
         this.cellButtons = cellButtons;
         this.source = new Node(sourceId/cellButtons.length, sourceId%cellButtons.length);
         this.destination = new Node(destinationId/cellButtons.length, destinationId%cellButtons.length);
